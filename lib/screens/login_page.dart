@@ -48,7 +48,7 @@ class _LoginPageState extends State<LoginPage> {
             TextField(
               controller: usuarioCtrl,
               decoration: InputDecoration(
-                labelText: 'Usuario / Matrícula',
+                labelText: 'Número de cuenta',
                 filled: true,
                 fillColor: Colors.white,
                 border: OutlineInputBorder(
