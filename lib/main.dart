@@ -17,7 +17,7 @@ class CobaApp extends StatelessWidget {
       title: 'COBAapp',
       theme: ThemeData(
         useMaterial3: true,
-        fontFamily: 'Roboto',
+        fontFamily: 'Montserrat',
       ),
       home: const InicioPage(),
     );
@@ -104,7 +104,7 @@ class InicioPage extends StatelessWidget {
                       'Colegio de Bachilleres del Estado de México',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        color: verde,
+                        color: vino,
                         fontSize: 15,
                         fontWeight: FontWeight.w800,
                       ),
