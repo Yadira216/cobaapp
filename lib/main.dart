@@ -98,13 +98,12 @@ class InicioPage extends StatelessWidget {
                       ),
                     ),
                     
-                    const SizedBox(height: 4),
-                    
+                    const SizedBox(height: 4), 
                     const Text(
                       'Colegio de Bachilleres del Estado de México',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        color: vino,
+                        color: Color.fromARGB(255, 107, 105, 105),
                         fontSize: 15,
                         fontWeight: FontWeight.w800,
                       ),
@@ -116,9 +115,9 @@ class InicioPage extends StatelessWidget {
               const SizedBox(height: 20),
 
 
-              // =========================
+            
               // MENU
-              // =========================
+              
 
               Expanded(
                 child: Column(
