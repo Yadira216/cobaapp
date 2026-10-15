@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import '../globales.dart' as globales;
 
 class CalendarioPage extends StatelessWidget {
   const CalendarioPage({super.key});
@@ -25,13 +26,13 @@ class CalendarioPage extends StatelessWidget {
         child: Column(
           children: [
             _WebViewSeccion(
-              url: 'https://saesc.cobaemex.edu.mx/android/calendario.html',
-              altura: 460,
+              url: '${globales.urlApi}/android/calendario.html',
+              altura: 820,
             ),
             const SizedBox(height: 4),
             _WebViewSeccion(
-              url: 'https://saesc.cobaemex.edu.mx/android/base_calendario.html',
-              altura: 490,
+              url: '${globales.urlApi}/android/base_calendario.html',
+              altura: 200,
             ),
           ],
         ),
