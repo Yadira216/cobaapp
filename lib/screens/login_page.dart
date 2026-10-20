@@ -210,12 +210,12 @@ class _LoginPageState extends State<LoginPage> {
                 children: [
                   Image.asset(
                     'assets/logoedu.png',
-                    height: 40,
+                    height: 48,
                   ),
                   const SizedBox(width: 10),
                   Image.asset(
                     'assets/cobalogo.png',
-                    height: 46,
+                    height: 40,
                   ),
                 ],
               ),
@@ -250,7 +250,7 @@ class _LoginPageState extends State<LoginPage> {
 
               const SizedBox(height: 34),
 
-              // USUARIO
+              // USUARIO 
               TextField(
                 controller: usuarioCtrl,
                 keyboardType: TextInputType.text,

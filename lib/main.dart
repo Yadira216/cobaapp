@@ -257,7 +257,7 @@ class _InicioPageState extends State<InicioPage>
         icon: Icons.link_rounded,
         title: 'Enlaces',
         description: '',
-        color: InicioPage.verde,
+        color: InicioPage.vino,
         onTap: () => _abrir(
           context,
           const WebPage(
@@ -270,7 +270,7 @@ class _InicioPageState extends State<InicioPage>
         icon: Icons.info_outline_rounded,
         title: 'Nosotros',
         description: 'Conoce COBAEM',
-        color: InicioPage.vino,
+        color: InicioPage.verde,
         onTap: () => _abrir(
           context,
           const WebPage(
@@ -307,20 +307,17 @@ class _InicioPageState extends State<InicioPage>
                     children: [
                       Image.asset(
                         'assets/logoedu.png',
-                        height: 36,
+                        height: 40,
                         fit: BoxFit.contain,
                       ),
                       const SizedBox(width: 12),
                       Image.asset(
                         'assets/cobalogo.png',
-                        height: 42,
+                        height: 36,
                         fit: BoxFit.contain,
                       ),
                       const Spacer(),
-                      _IconButtonCard(
-                        icon: Icons.notifications_none_rounded,
-                        onTap: () => _mostrarAvisos(context),
-                      ),
+                      
                     ],
                   ),
                 ),
@@ -440,7 +437,7 @@ class _InicioPageState extends State<InicioPage>
 
                 const SizedBox(height: 10),
 
-                // TÍTULO DE ACCESOS
+                // TÍTULO DE ACCESOS 
                 _entrada(
                   inicio: 0.18,
                   fin: 0.54,
@@ -503,71 +500,63 @@ class _InicioPageState extends State<InicioPage>
                 const SizedBox(height: 10),
 
                 // REDES SOCIALES
+                
+                // REDES SOCIALES
                 _entrada(
                   inicio: 0.66,
                   fin: 1,
-                  child: Container(
+                  child: SizedBox(
                     width: double.infinity,
-                    padding: const EdgeInsets.fromLTRB(15, 10, 15, 9),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(21),
-                      border: Border.all(
-                        color: const Color(0xFFECECF0),
-                      ),
-                    ),
-                    child: Row(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
                       children: [
-                        const Expanded(
-                          flex: 3,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text(
-                                'Síguenos',
-                                style: TextStyle(
-                                  color: InicioPage.texto,
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w900,
-                                ),
-                              ),
-                              SizedBox(height: 3),
-                              Text(
-                                'Mantente conectado',
-                                style: TextStyle(
-                                  color: Color(0xFF85858D),
-                                  fontSize: 10,
-                                ),
-                              ),
-                            ],
+                        const Text(
+                          'Mantente conectado',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: InicioPage.texto,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
-                        _RedSocialCard(
-                          nombre: 'Facebook',
-                          icono: Icons.facebook_rounded,
-                          color: const Color(0xFF1877F2),
-                          onTap: () => _abrir(
-                            context,
-                            const WebPage(
-                              titulo: 'Facebook',
-                              url:
-                                  'https://web.facebook.com/COBA.EDOMEX/?locale=es',
+                        const SizedBox(height: 12),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            _BotonRedSocial(
+                              imagen: 'assets/tiktok.png',
+                              onTap: () => _abrir(
+                                context,
+                                const WebPage(
+                                  titulo: 'TikTok',
+                                  url: 'https://www.tiktok.com/',
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
-                        const SizedBox(width: 17),
-                        _RedSocialCard(
-                          nombre: 'X',
-                          icono: Icons.close_rounded,
-                          color: Colors.black,
-                          onTap: () => _abrir(
-                            context,
-                            const WebPage(
-                              titulo: 'X',
-                              url: 'https://x.com/COBAEMex?lang=es',
+                            const SizedBox(width: 25),
+                            _BotonRedSocial(
+                              imagen: 'assets/logofacebook.png',
+                              onTap: () => _abrir(
+                                context,
+                                const WebPage(
+                                  titulo: 'Facebook',
+                                  url:
+                                      'https://web.facebook.com/COBA.EDOMEX/?locale=es',
+                                ),
+                              ),
                             ),
-                          ),
+                            const SizedBox(width: 25),
+                            _BotonRedSocial(
+                              imagen: 'assets/logox.jpg',
+                              onTap: () => _abrir(
+                                context,
+                                const WebPage(
+                                  titulo: 'X',
+                                  url: 'https://x.com/COBAEMex?lang=es',
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
@@ -606,29 +595,11 @@ class _InicioPageState extends State<InicioPage>
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(
-              Icons.notifications_active_rounded,
-              color: InicioPage.vino,
-              size: 42,
-            ),
+            
             SizedBox(height: 12),
-            Text(
-              'Avisos',
-              style: TextStyle(
-                color: InicioPage.texto,
-                fontSize: 20,
-                fontWeight: FontWeight.w900,
-              ),
-            ),
+            
             SizedBox(height: 8),
-            Text(
-              'Por el momento no hay avisos disponibles.',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Color(0xFF85858D),
-                fontSize: 13,
-              ),
-            ),
+            
           ],
         ),
       ),
@@ -636,49 +607,8 @@ class _InicioPageState extends State<InicioPage>
   }
 }
 
-// --------------------------------------------------
-// BOTÓN DE AVISOS
-// --------------------------------------------------
-
-class _IconButtonCard extends StatelessWidget {
-  final IconData icon;
-  final VoidCallback onTap;
-
-  const _IconButtonCard({
-    required this.icon,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(16),
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(16),
-        child: Container(
-          width: 43,
-          height: 43,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16),
-            border: Border.all(
-              color: const Color(0xFFEAEAF0),
-            ),
-          ),
-          child: const Icon(
-            Icons.notifications_none_rounded,
-            color: InicioPage.vino,
-            size: 23,
-          ),
-        ),
-      ),
-    );
-  }
-}
 
 // TARJETAS DEL MENÚ
-
 class MenuCard extends StatefulWidget {
   final IconData icon;
   final String title;
@@ -784,70 +714,65 @@ class _MenuCardState extends State<MenuCard> {
   }
 }
 
-// REDES SOCIALES
+ // REDES SOCIALES
 
-class _RedSocialCard extends StatefulWidget {
-  final String nombre;
-  final IconData icono;
-  final Color color;
+class _BotonRedSocial extends StatefulWidget {
+  final String imagen;
   final VoidCallback onTap;
 
-  const _RedSocialCard({
-    required this.nombre,
-    required this.icono,
-    required this.color,
+  const _BotonRedSocial({
+    required this.imagen,
     required this.onTap,
   });
 
   @override
-  State<_RedSocialCard> createState() => _RedSocialCardState();
+  State<_BotonRedSocial> createState() => _BotonRedSocialState();
 }
 
-class _RedSocialCardState extends State<_RedSocialCard> {
+class _BotonRedSocialState extends State<_BotonRedSocial> {
   bool _presionado = false;
 
   @override
   Widget build(BuildContext context) {
     return AnimatedScale(
-      scale: _presionado ? 0.93 : 1,
-      duration: const Duration(milliseconds: 130),
-      child: InkWell(
-        onTap: widget.onTap,
-        onHighlightChanged: (value) {
-          setState(() => _presionado = value);
-        },
-        borderRadius: BorderRadius.circular(13),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 2,
-            vertical: 1,
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                width: 37,
-                height: 37,
-                decoration: BoxDecoration(
-                  color: widget.color.withOpacity(0.09),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Icon(
-                  widget.icono,
-                  color: widget.color,
-                  size: 23,
-                ),
+      scale: _presionado ? 0.92 : 1,
+      duration: const Duration(milliseconds: 140),
+      child: Material(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(18),
+        child: InkWell(
+          onTap: widget.onTap,
+          onHighlightChanged: (value) {
+            setState(() => _presionado = value);
+          },
+          borderRadius: BorderRadius.circular(18),
+          child: Container(
+            width: 54,
+            height: 54,
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(18),
+              border: Border.all(
+                color: const Color(0xFFEAEAF0),
               ),
-              const SizedBox(height: 4),
-              Text(
-                widget.nombre,
-                style: TextStyle(
-                  color: widget.color,
-                  fontSize: 10,
-                  fontWeight: FontWeight.w800,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.04),
+                  blurRadius: 10,
+                  offset: const Offset(0, 3),
                 ),
-              ),
-            ],
+              ],
+            ),
+            child: Image.asset(
+              widget.imagen,
+              fit: BoxFit.contain,
+              errorBuilder: (context, error, stackTrace) {
+                return const Icon(
+                  Icons.image_not_supported_outlined,
+                  color: InicioPage.vino,
+                );
+              },
+            ),
           ),
         ),
       ),

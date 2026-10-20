@@ -153,13 +153,13 @@ class _AlumnoHomeState extends State<AlumnoHome> {
                         children: [
                           Image.asset(
                             'assets/logoedu.png',
-                            height: 38,
+                            height: 48,
                             fit: BoxFit.contain,
                           ),
                           const SizedBox(width: 10),
                           Image.asset(
                             'assets/cobalogo.png',
-                            height: 42,
+                            height: 40,
                             fit: BoxFit.contain,
                           ),
                           const Spacer(),

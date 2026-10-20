@@ -80,6 +80,10 @@ flutter:
   assets:
     - assets/cobalogo.png
     - assets/logoedu.png
+    - assets/logofacebook.png
+    - assets/logox.jpg
+    - assets/tiktok.png
+
 
   # To add assets to your application, add an assets section, like this:
   # assets:
