@@ -17,6 +17,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   static const Color vino = Color(0xFF7B1735);
+  static const Color fondo = Color(0xFFF5F5F7);
 
   final usuarioCtrl = TextEditingController();
   final passwordCtrl = TextEditingController();
@@ -160,7 +161,7 @@ class _LoginPageState extends State<LoginPage> {
         return;
       }
 
-      // OTROS ERRORES DEL SERVIDOR
+      // OTROS ERRORES
       setState(() {
         mensajeError =
             datos['mensaje'] ??
@@ -190,184 +191,247 @@ class _LoginPageState extends State<LoginPage> {
     super.dispose();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFFF5F5F7),
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        foregroundColor: vino,
-      ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 28),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // LOGOS INSTITUCIONALES
-              Row(
-                children: [
-                  Image.asset(
-                    'assets/logoedu.png',
-                    height: 48,
-                  ),
-                  const SizedBox(width: 10),
-                  Image.asset(
-                    'assets/cobalogo.png',
-                    height: 40,
-                  ),
-                ],
-              ),
 
-              const SizedBox(height: 20),
+@override
+Widget build(BuildContext context) {
+  return Scaffold(
+    backgroundColor: fondo,
+    resizeToAvoidBottomInset: true,
 
-              const Icon(
-                Icons.lock_person_rounded,
-                color: vino,
-                size: 52,
-              ),
-
-              const SizedBox(height: 18),
-
-              const Text(
-                'Iniciar sesión',
-                style: TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.w800,
+    body: SafeArea(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // LOGOS SOBRE EL FONDO ORIGINAL
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 23,
+              vertical: 10,
+            ),
+            child: Row(
+              children: [
+                Image.asset(
+                  'assets/logoedu.png',
+                  height: 49,
+                  fit: BoxFit.contain,
                 ),
-              ),
-
-              const SizedBox(height: 6),
-
-              Text(
-                'Ingresa tus datos para continuar',
-                style: TextStyle(
-                  color: Colors.grey.shade600,
-                  fontSize: 14,
-                ),
-              ),
-
-              const SizedBox(height: 34),
-
-              // USUARIO 
-              TextField(
-                controller: usuarioCtrl,
-                keyboardType: TextInputType.text,
-                textInputAction: TextInputAction.next,
-                decoration: InputDecoration(
-                  labelText: 'Usuario',
-                  hintText: 'Número de cuenta o username',
-                  prefixIcon: const Icon(
-                    Icons.person_outline_rounded,
-                  ),
-                  filled: true,
-                  fillColor: Colors.white,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(16),
-                    borderSide: BorderSide.none,
-                  ),
-                ),
-              ),
-
-              const SizedBox(height: 16),
-
-              // CONTRASEÑA
-              TextField(
-                controller: passwordCtrl,
-                obscureText: ocultarPassword,
-                textInputAction: TextInputAction.done,
-                onSubmitted: (_) {
-                  if (!cargando) {
-                    _iniciarSesion();
-                  }
-                },
-                decoration: InputDecoration(
-                  labelText: 'Contraseña',
-                  prefixIcon: const Icon(
-                    Icons.lock_outline_rounded,
-                  ),
-                  filled: true,
-                  fillColor: Colors.white,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(16),
-                    borderSide: BorderSide.none,
-                  ),
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                      ocultarPassword
-                          ? Icons.visibility_off_rounded
-                          : Icons.visibility_rounded,
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        ocultarPassword = !ocultarPassword;
-                      });
-                    },
-                  ),
-                ),
-              ),
-
-              // MENSAJE DE ERROR
-              if (mensajeError != null) ...[
-                const SizedBox(height: 14),
-                Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    color: Colors.red.withOpacity(0.08),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Text(
-                    mensajeError!,
-                    style: const TextStyle(
-                      color: Colors.red,
-                      fontSize: 13,
-                    ),
-                  ),
-                ),
+                
               ],
-
-              const SizedBox(height: 28),
-
-              // BOTÓN INGRESAR
-              SizedBox(
-                width: double.infinity,
-                height: 54,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: vino,
-                    disabledBackgroundColor:
-                        vino.withOpacity(0.5),
-                    elevation: 0,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
+            ),
+          ), 
+          // FLECHA PARA REGRESAR, DEBAJO DE LOS LOGOS
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 20,
+                    top: 4,
+                    bottom: 8,
+                  ),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: IconButton(
+                      icon: const Icon(
+                        Icons.arrow_back_rounded,
+                        color: vino,
+                        size: 28,
+                      ),
+                      onPressed: () {
+                        Navigator.of(context).maybePop();
+                      },
                     ),
                   ),
-                  onPressed: cargando ? null : _iniciarSesion,
-                  child: cargando
-                      ? const SizedBox(
-                          width: 23,
-                          height: 23,
-                          child: CircularProgressIndicator(
-                            color: Colors.white,
-                            strokeWidth: 2,
-                          ),
-                        )
-                      : const Text(
-                          'Ingresar',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w700,
-                            fontSize: 16,
+                ),
+
+            // FORMULARIO DESPLAZABLE
+            Expanded(
+              child: SingleChildScrollView(
+                keyboardDismissBehavior:
+                    ScrollViewKeyboardDismissBehavior.manual,
+                padding: const EdgeInsets.fromLTRB(
+                  28,
+                  25,
+                  28,
+                  30,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Icon(
+                      Icons.lock_person_rounded,
+                      color: vino,
+                      size: 52,
+                    ),
+
+                    const SizedBox(height: 18),
+
+                    const Text(
+                      'Iniciar sesión',
+                      style: TextStyle(
+                        color: Color(0xFF29252A),
+                        fontSize: 28,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
+
+                    const SizedBox(height: 6),
+
+                    Text(
+                      'Ingresa tus datos para continuar',
+                      style: TextStyle(
+                        color: Colors.grey.shade600,
+                        fontSize: 14,
+                      ),
+                    ),
+
+                    const SizedBox(height: 34),
+
+                    // USUARIO
+                    TextField(
+                      controller: usuarioCtrl,
+                      keyboardType: TextInputType.text,
+                      textInputAction: TextInputAction.next,
+                      decoration: InputDecoration(
+                        labelText: 'Usuario',
+                        hintText: 'Número de cuenta o username',
+                        prefixIcon: const Icon(
+                          Icons.person_outline_rounded,
+                        ),
+                        filled: true,
+                        fillColor: Colors.white,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(16),
+                          borderSide: BorderSide.none,
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(16),
+                          borderSide: BorderSide(
+                            color: Colors.grey.withOpacity(.10),
                           ),
                         ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(16),
+                          borderSide: const BorderSide(
+                            color: vino,
+                            width: 1.4,
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    const SizedBox(height: 16),
+
+                    // CONTRASEÑA
+                    TextField(
+                      controller: passwordCtrl,
+                      obscureText: ocultarPassword,
+                      textInputAction: TextInputAction.done,
+                      onSubmitted: (_) {
+                        if (!cargando) {
+                          _iniciarSesion();
+                        }
+                      },
+                      decoration: InputDecoration(
+                        labelText: 'Contraseña',
+                        prefixIcon: const Icon(
+                          Icons.lock_outline_rounded,
+                        ),
+                        filled: true,
+                        fillColor: Colors.white,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(16),
+                          borderSide: BorderSide.none,
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(16),
+                          borderSide: BorderSide(
+                            color: Colors.grey.withOpacity(.10),
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(16),
+                          borderSide: const BorderSide(
+                            color: vino,
+                            width: 1.4,
+                          ),
+                        ),
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            ocultarPassword
+                                ? Icons.visibility_off_rounded
+                                : Icons.visibility_rounded,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              ocultarPassword = !ocultarPassword;
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+
+                    // MENSAJE DE ERROR
+                    if (mensajeError != null) ...[
+                      const SizedBox(height: 14),
+                      Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          color: Colors.red.withOpacity(.08),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Text(
+                          mensajeError!,
+                          style: const TextStyle(
+                            color: Colors.red,
+                            fontSize: 13,
+                          ),
+                        ),
+                      ),
+                    ],
+
+                    const SizedBox(height: 28),
+
+                    // BOTÓN INGRESAR
+                    SizedBox(
+                      width: double.infinity,
+                      height: 54,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: vino,
+                          disabledBackgroundColor:
+                              vino.withOpacity(.5),
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                        ),
+                        onPressed:
+                            cargando ? null : _iniciarSesion,
+                        child: cargando
+                            ? const SizedBox(
+                                width: 23,
+                                height: 23,
+                                child: CircularProgressIndicator(
+                                  color: Colors.white,
+                                  strokeWidth: 2,
+                                ),
+                              )
+                            : const Text(
+                                'Ingresar',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 16,
+                                ),
+                              ),
+                      ),
+                    ),
+
+                    const SizedBox(height: 15),
+                  ],
                 ),
               ),
-
-              const SizedBox(height: 30),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

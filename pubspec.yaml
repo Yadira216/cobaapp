@@ -31,22 +31,17 @@ dependencies:
   flutter:
     sdk: flutter
 
-
   # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
-  
   cupertino_icons: ^1.0.8
   webview_flutter: ^4.14.1
   url_launcher: ^6.3.2
   http: ^1.6.0
+  cached_network_image: ^3.4.1
   qr_flutter: ^4.1.0
   printing: ^5.15.1
-
   mobile_scanner: ^7.1.2
   shared_preferences: ^2.5.6
   flutter_local_notifications: ^22.3.2
-
-  
   workmanager: ^0.10.10
 
 
@@ -78,11 +73,28 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/cobalogo.png
     - assets/logoedu.png
-    - assets/logofacebook.png
-    - assets/logox.jpg
-    - assets/tiktok.png
+   
+    
+
+    
+
+  fonts:
+    - family: Gotham
+      fonts:
+        - asset: assets/fonts/Gotham-Book.otf
+          weight: 400
+        - asset: assets/fonts/Gotham-Medium.otf
+          weight: 500
+        - asset: assets/fonts/Gotham-Bold.otf
+          weight: 700
+        - asset: assets/fonts/Gotham-BookItalic.otf
+          weight: 400
+          style: italic
+        - asset: assets/fonts/Gotham-BoldItalic.otf
+          weight: 700
+          style: italic
+
 
 
   # To add assets to your application, add an assets section, like this:
@@ -115,6 +127,7 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
+  
 flutter_launcher_icons:
   android: true
   ios: true

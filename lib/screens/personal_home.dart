@@ -151,29 +151,7 @@ class _PersonalHomeState extends State<PersonalHome> {
                   const SizedBox(height: 22),
 
                   const Center(
-                    child: Column(
-                      children: [
-                        Text(
-                          'COBAapp',
-                          style: TextStyle(
-                            color: vino,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w900,
-                            letterSpacing: 1,
-                          ),
-                        ),
-                        SizedBox(height: 4),
-                        Text(
-                          'Colegio de Bachilleres del Estado de México',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: gris,
-                            fontSize: 10,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ],
-                    ),
+                    
                   ),
                 ]),
               ),

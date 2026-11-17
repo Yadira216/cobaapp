@@ -151,50 +151,14 @@ class _AlumnoHomeState extends State<AlumnoHome> {
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Image.asset(
-                            'assets/logoedu.png',
-                            height: 48,
-                            fit: BoxFit.contain,
-                          ),
-                          const SizedBox(width: 10),
-                          Image.asset(
-                            'assets/cobalogo.png',
-                            height: 40,
-                            fit: BoxFit.contain,
-                          ),
-                          const Spacer(),
-                          _botonHeader(
-                            Icons.exit_to_app_rounded,
-                            () async {
-                              
-                            final preferencias = await SharedPreferences.getInstance();
-
-                            // Cancelar las revisiones asociadas a la sesión del alumno.
-                            try {
-                              await OrientacionTareasFondo.cancelar();
-                            } catch (e) {
-                              debugPrint(
-                                'No se pudo cancelar la tarea de Orientación: $e',
-                              );
-                            }
-
-                            // Eliminar los datos de la sesión.
-                            await preferencias.remove('sesion_activa');
-                            await preferencias.remove('tipo_usuario');
-                            await preferencias.remove('usuario_sesion');
-
-
-                              if (!context.mounted) return;
-
-                              Navigator.of(context).pushAndRemoveUntil(
-                                MaterialPageRoute(
-                                  builder: (_) => const InicioPage(),
-                                ),
-                                (route) => false,
-                              );
-                            },
-                            fondoBlanco: true,
-                          ),
+                         Image.asset(
+                        'assets/logoedu.png',
+                        height: 49,
+                        fit: BoxFit.contain,
+                      ),
+                      
+                      const Spacer(),
+                          
                         ],
                       ),
                     ),
@@ -434,6 +398,15 @@ class _AlumnoHomeState extends State<AlumnoHome> {
                     delay: 400,
                     child: _informacionCard(),
                   ),
+
+                  const SizedBox(height: 18),
+
+                  _entrada(
+                    delay: 450,
+                    child: _botonCerrarSesion(),
+                  ),
+
+                  const SizedBox(height: 10),
                 ],
               ),
             ),
@@ -992,11 +965,122 @@ class _AlumnoHomeState extends State<AlumnoHome> {
     );
   }
 
+  
   // SEPARADOR
   Widget _separador() {
     return Divider(
       height: 1,
       color: Colors.grey.shade100,
+    );
+  }
+
+  // BOTÓN CERRAR SESIÓN
+  Widget _botonCerrarSesion() {
+    return SizedBox(
+      width: double.infinity,
+      height: 53,
+      child: OutlinedButton.icon(
+        onPressed: () {
+          showDialog<void>(
+            context: context,
+            builder: (dialogContext) {
+              return AlertDialog(
+                backgroundColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(24),
+                ),
+                icon: const Icon(
+                  Icons.logout_rounded,
+                  color: vino,
+                  size: 30,
+                ),
+                title: const Text(
+                  'Cerrar sesión',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Color(0xFF29252A),
+                    fontWeight: FontWeight.w800,
+                    fontSize: 19,
+                  ),
+                ),
+                content: const Text(
+                  '¿Deseas salir de tu cuenta?',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Color(0xFF85818A),
+                    fontSize: 14,
+                  ),
+                ),
+                actionsAlignment: MainAxisAlignment.center,
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(dialogContext);
+                    },
+                    child: const Text('Cancelar'),
+                  ),
+                  FilledButton(
+                    style: FilledButton.styleFrom(
+                      backgroundColor: vino,
+                      foregroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    onPressed: () async {
+                      Navigator.pop(dialogContext);
+
+                      final preferencias =
+                          await SharedPreferences.getInstance();
+
+                      try {
+                        await OrientacionTareasFondo.cancelar();
+                      } catch (e) {
+                        debugPrint(
+                          'No se pudo cancelar la tarea de Orientación: $e',
+                        );
+                      }
+
+                      await preferencias.remove('sesion_activa');
+                      await preferencias.remove('tipo_usuario');
+                      await preferencias.remove('usuario_sesion');
+
+                      if (!mounted) return;
+
+                      Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(
+                          builder: (_) => const InicioPage(),
+                        ),
+                        (route) => false,
+                      );
+                    },
+                    child: const Text('Salir'),
+                  ),
+                ],
+              );
+            },
+          );
+        },
+        icon: const Icon(Icons.logout_rounded, size: 19),
+        label: const Text(
+          'Cerrar sesión',
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w800,
+          ),
+        ),
+        style: OutlinedButton.styleFrom(
+          foregroundColor: vino,
+          side: BorderSide(
+            color: vino.withOpacity(.25),
+            width: 1.2,
+          ),
+          backgroundColor: Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(17),
+          ),
+        ),
+      ),
     );
   }
 }

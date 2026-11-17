@@ -13,6 +13,8 @@ import 'screens/calendario_page.dart';
 import 'globales.dart' as globales;
 import 'package:workmanager/workmanager.dart';
 import 'orientacion_tarea_fondo.dart';
+import 'screens/planteles_page.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 
 Future<void> main() async {
@@ -52,7 +54,7 @@ class CobaApp extends StatelessWidget {
       title: 'COBAapp',
       theme: ThemeData(
         useMaterial3: true,
-        fontFamily: 'Montserrat',
+        fontFamily: 'Gotham',
         scaffoldBackgroundColor: const Color(0xFFF6F7F9),
         colorScheme: ColorScheme.fromSeed(
           seedColor: const Color(0xFF7B1735),
@@ -241,18 +243,15 @@ class _InicioPageState extends State<InicioPage>
         ),
       ),
       MenuCard(
-        icon: Icons.location_city_rounded,
-        title: 'Planteles',
-        description: '',
-        color: InicioPage.verde,
-        onTap: () => _abrir(
-          context,
-          const WebPage(
-            titulo: 'Planteles',
-            url: '${globales.urlApi}/sisCrafmap/',
-          ),
-        ),
-      ),
+  icon: Icons.location_city_rounded,
+  title: 'Planteles',
+  description: '',
+  color: InicioPage.verde,
+  onTap: () => _abrir(
+    context,
+    const PlantelesPage(),
+  ),
+),
       MenuCard(
         icon: Icons.link_rounded,
         title: 'Enlaces',
@@ -307,15 +306,11 @@ class _InicioPageState extends State<InicioPage>
                     children: [
                       Image.asset(
                         'assets/logoedu.png',
-                        height: 40,
+                        height: 49,
                         fit: BoxFit.contain,
                       ),
-                      const SizedBox(width: 12),
-                      Image.asset(
-                        'assets/cobalogo.png',
-                        height: 36,
-                        fit: BoxFit.contain,
-                      ),
+                      const SizedBox(width: 3),
+                      
                       const Spacer(),
                       
                     ],
@@ -379,28 +374,34 @@ class _InicioPageState extends State<InicioPage>
                                 ),
                               ),
                               const SizedBox(height: 1),
-                              RichText(
-                                text: const TextSpan(
-                                  children: [
-                                    TextSpan(
-                                      text: 'COBA',
-                                      style: TextStyle(
-                                        fontSize: 31,
-                                        fontWeight: FontWeight.w900,
-                                        color: Colors.white,
-                                      ),
+                              
+                            RichText(
+                              text: const TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: 'COBA',
+                                    style: TextStyle(
+                                      fontFamily: 'Gotham',
+                                      fontSize: 31,
+                                      fontWeight: FontWeight.w700,
+                                      color: Colors.white,
+                                      letterSpacing: -0.8,
                                     ),
-                                    TextSpan(
-                                      text: 'app',
-                                      style: TextStyle(
-                                        fontSize: 31,
-                                        fontWeight: FontWeight.w900,
-                                        color: Color(0xFFB8EF98),
-                                      ),
+                                  ),
+                                  TextSpan(
+                                    text: 'app',
+                                    style: TextStyle(
+                                      fontFamily: 'Gotham',
+                                      fontSize: 31,
+                                      fontWeight: FontWeight.w700,
+                                      color: Color(0xFFB8EF98),
+                                      letterSpacing: -0.8,
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
+                            ),
+
                               const SizedBox(height: 5),
                               const Text(
                                 'Colegio de Bachilleres del Estado de México',
@@ -498,8 +499,6 @@ class _InicioPageState extends State<InicioPage>
                 ),
 
                 const SizedBox(height: 10),
-
-                // REDES SOCIALES
                 
                 // REDES SOCIALES
                 _entrada(
@@ -524,18 +523,19 @@ class _InicioPageState extends State<InicioPage>
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             _BotonRedSocial(
-                              imagen: 'assets/tiktok.png',
+                              imagen: 'http://10.35.16.16/saesc/media/images/redes/tiktok.png',
                               onTap: () => _abrir(
                                 context,
                                 const WebPage(
                                   titulo: 'TikTok',
-                                  url: 'https://www.tiktok.com/',
+                                  url: 'https://www.tiktok.com/@cobaemex',
                                 ),
                               ),
                             ),
                             const SizedBox(width: 25),
                             _BotonRedSocial(
-                              imagen: 'assets/logofacebook.png',
+                              imagen: 'http://10.35.16.16/saesc/media/images/redes/logofacebook.png',
+
                               onTap: () => _abrir(
                                 context,
                                 const WebPage(
@@ -547,7 +547,7 @@ class _InicioPageState extends State<InicioPage>
                             ),
                             const SizedBox(width: 25),
                             _BotonRedSocial(
-                              imagen: 'assets/logox.jpg',
+                              imagen: 'http://10.35.16.16/saesc/media/images/redes/logox.jpg',
                               onTap: () => _abrir(
                                 context,
                                 const WebPage(
@@ -562,6 +562,8 @@ class _InicioPageState extends State<InicioPage>
                     ),
                   ),
                 ),
+
+
               ],
             ),
           ),
@@ -713,10 +715,7 @@ class _MenuCardState extends State<MenuCard> {
     );
   }
 }
-
- // REDES SOCIALES
-
-class _BotonRedSocial extends StatefulWidget {
+class _BotonRedSocial extends StatelessWidget {
   final String imagen;
   final VoidCallback onTap;
 
@@ -726,53 +725,27 @@ class _BotonRedSocial extends StatefulWidget {
   });
 
   @override
-  State<_BotonRedSocial> createState() => _BotonRedSocialState();
-}
-
-class _BotonRedSocialState extends State<_BotonRedSocial> {
-  bool _presionado = false;
-
-  @override
   Widget build(BuildContext context) {
-    return AnimatedScale(
-      scale: _presionado ? 0.92 : 1,
-      duration: const Duration(milliseconds: 140),
-      child: Material(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(18),
-        child: InkWell(
-          onTap: widget.onTap,
-          onHighlightChanged: (value) {
-            setState(() => _presionado = value);
-          },
-          borderRadius: BorderRadius.circular(18),
-          child: Container(
-            width: 54,
-            height: 54,
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(18),
-              border: Border.all(
-                color: const Color(0xFFEAEAF0),
+    return GestureDetector(
+      onTap: onTap,
+      child: SizedBox(
+        width: 38,
+        height: 38,
+        child: CachedNetworkImage(
+          imageUrl: imagen,
+          fit: BoxFit.contain,
+          placeholder: (context, url) => const Center(
+            child: SizedBox(
+              width: 18,
+              height: 18,
+              child: CircularProgressIndicator(
+                strokeWidth: 2,
               ),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.04),
-                  blurRadius: 10,
-                  offset: const Offset(0, 3),
-                ),
-              ],
             ),
-            child: Image.asset(
-              widget.imagen,
-              fit: BoxFit.contain,
-              errorBuilder: (context, error, stackTrace) {
-                return const Icon(
-                  Icons.image_not_supported_outlined,
-                  color: InicioPage.vino,
-                );
-              },
-            ),
+          ),
+          errorWidget: (context, url, error) => const Icon(
+            Icons.image_not_supported_outlined,
+            color: Colors.grey,
           ),
         ),
       ),
